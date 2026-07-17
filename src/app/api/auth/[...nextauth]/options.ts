@@ -10,11 +10,11 @@ export const authOptions: NextAuthOptions = {
       id: 'credentials',
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'text' },
+        identifier: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      async authorize(credentials: any): Promise<any> {
+      async authorize(credentials: any): Promise<any> { 
         await dbConnect();
         try {
           const user = await UserModel.findOne({
