@@ -16,11 +16,12 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
-      <AuthProvider>
-        <body className="min-h-full flex flex-col">{children}
-        <Toaster richColors position="bottom-right" />
+        <body className="min-h-full flex flex-col">
+          <AuthProvider>
+            {children}
+            <Toaster richColors position="bottom-right" />
+          </AuthProvider>
         </body>
-      </AuthProvider>
     </html>
   );
 }
