@@ -16,9 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Button } from './ui/button';
 import { toast } from 'sonner';
-// import { useToast } from '@/components/ui/use-toast';
 import { ApiResponse } from '@/types/Apiresponse';
 
 type MessageCardProps = {
@@ -56,13 +54,11 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
         <div className="flex justify-between items-center">
           <CardTitle>{message.content}</CardTitle>
           <AlertDialog>
-            <AlertDialogTrigger>
-                <Button variant="destructive">
-                    <X className="h-5 w-5" />
-                </Button>
-            </AlertDialogTrigger>
+          <AlertDialogTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-red-600 text-white hover:bg-red-700">
+            <X className="h-5 w-5" />
+          </AlertDialogTrigger> 
             <AlertDialogContent>
-              <AlertDialogHeader>
+              <AlertDialogHeader> 
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   This action cannot be undone. This will permanently delete
