@@ -25,10 +25,17 @@ export async function GET() {
       { $group: { _id: '$_id', messages: { $push: '$messages' } } },
     ]).exec();
 
-    if (!user || user.length === 0) {
+    if (!user) {
       return Response.json(
         { message: 'User not found', success: false },
         { status: 404 }
+      );
+    }
+
+    if (user.length === 0) {
+      return Response.json(
+        { message: 'No messages found', success: true, messages: [] },
+        { status: 200 }
       );
     }
 
