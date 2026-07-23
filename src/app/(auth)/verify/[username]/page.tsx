@@ -35,7 +35,7 @@ export default function VerifyAccount() {
         code: data.code,
       });
 
-      toast('Verification Successful', {
+      toast.success('Verification Successful', {
         description: response.data.message,
       });
 
@@ -43,7 +43,7 @@ export default function VerifyAccount() {
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
 
-      toast('Verification Failed', {
+      toast.error('Verification Failed', {
         description:
           axiosError.response?.data.message ??
           'An error occurred. Please try again.',

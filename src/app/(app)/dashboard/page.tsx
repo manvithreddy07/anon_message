@@ -46,7 +46,7 @@ function UserDashboard() {
       setValue('acceptMessages', response.data.isAcceptingMessages ?? false);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast("Error", {
+      toast.warning("Error", {
         description:
           axiosError.response?.data.message ?? 'Failed to fetch message settings',
           position: 'bottom-right',
@@ -64,14 +64,14 @@ function UserDashboard() {
         const response = await axios.get<ApiResponse>('/api/get-messages');
         setMessages(response.data.messages || []);
         if (refresh) {
-          toast("Refreshed Messages", {
+          toast.success("Refreshed Messages", {
             description: 'Showing latest messages',
             position: 'bottom-right',
           });
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
-        toast("Error", {
+        toast.warning("Error", {
           description:
             axiosError.response?.data.message || 'Failed to fetch messages',
         });
@@ -99,13 +99,13 @@ function UserDashboard() {
         acceptMessages: !acceptMessages,
       });
       setValue('acceptMessages', !acceptMessages);
-      toast("Message Settings Updated",     {
+      toast.success("Message Settings Updated",     {
         description: response.data.message,
         position: 'bottom-right',
       });
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast("Error", {
+      toast.error("Error", {
         description: axiosError.response?.data.message ?? 'Failed to update message settings',
         position: 'bottom-right',
       });
@@ -123,12 +123,12 @@ function UserDashboard() {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(profileUrl);
-      toast("URL Copied!", {
+      toast.success("URL Copied!", {
         description: 'Profile URL has been copied to clipboard.',
         position: 'bottom-right',
       });
     } catch {
-      toast("Failed to copy URL", {
+      toast.error("Failed to copy URL", {
         description: 'Failed to copy profile URL to clipboard.',
         position: 'bottom-right',
       });

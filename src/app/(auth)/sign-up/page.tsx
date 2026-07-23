@@ -81,7 +81,7 @@ export default function SignUpForm() {
         data
       );
 
-      toast('Success', {
+      toast.success('Success', {
         description: response.data.message,
       });
 
@@ -91,7 +91,7 @@ export default function SignUpForm() {
 
       const axiosError = error as AxiosError<ApiResponse>;
 
-      toast('Sign Up Failed', {
+      toast.error('Sign Up Failed', {
         description:
           axiosError.response?.data.message ??
           'There was a problem with your sign-up.',
