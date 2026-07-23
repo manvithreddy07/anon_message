@@ -2,7 +2,6 @@
 
 import { MessageCard } from '@/components/MessageCard';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { Message } from '@/model/User';
@@ -16,6 +15,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AcceptMessageSchema } from '@/schemas/acceptMessageSchema';
 import * as z from "zod";
+import { Input } from '@base-ui/react';
 
 function UserDashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -136,64 +136,134 @@ function UserDashboard() {
     
   };
 
-  return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-muted rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
+return (
+  <div className="min-h-screen bg-linear-to-br from-slate-950 via-gray-900 to-black px-6 pt-32 pb-10">
+    <div className="mx-auto max-w-7xl">
 
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
-        <div className="flex items-center">
-          <input
-            type="text"
-            value={profileUrl}
-            disabled
-            className="input input-bordered w-full p-2 mr-2"
-          />
-          <Button onClick={copyToClipboard}>Copy</Button>
+      {/* Header */}
+      <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
+        <div>
+          <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
+            Dashboard
+          </p>
+          <h1 className="mt-2 text-5xl font-bold text-white">
+            Welcome Back 👋
+          </h1>
+          <p className="mt-3 text-gray-400">
+            Manage your anonymous feedback and profile settings.
+          </p>
+        </div>
+
+        <Button
+          variant="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            fetchMessages(true);
+          }}
+          className="rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Refreshing...
+            </>
+          ) : (
+            <>
+              <RefreshCcw className="mr-2 h-4 w-4" />
+              Refresh Messages
+            </>
+          )}
+        </Button>
+      </div>
+
+      {/* Top Cards */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Share Profile */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+          <h2 className="text-xl font-semibold text-white">
+            Share Your Profile
+          </h2>
+          <p className="mt-2 text-sm text-gray-400">
+            Send this link to your friends and receive anonymous feedback.
+          </p>
+          <div className="mt-6 flex gap-3">
+            <Input
+              value={profileUrl}
+              disabled
+              className="border-white/10 bg-white/5 text-white w-xl"
+            />
+            <Button
+              onClick={copyToClipboard}
+              className="bg-cyan-500 hover:bg-cyan-600"
+            >
+              Copy
+            </Button>
+          </div>
+        </div>
+
+        {/* Settings */}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+          <h2 className="text-xl font-semibold text-white">
+            Message Settings
+          </h2>
+          <p className="mt-2 text-sm text-gray-400">
+            Control whether people can send you anonymous messages.
+          </p>
+          <div className="mt-8 flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-5 py-4">
+            <div>
+              <p className="font-medium text-white">
+                Accept Anonymous Messages
+              </p>
+              <p className="text-sm text-gray-400">
+                {acceptMessages
+                  ? "Currently enabled"
+                  : "Currently disabled"}
+              </p>
+            </div>
+            <Switch
+              checked={acceptMessages}
+              onCheckedChange={handleSwitchChange}
+              disabled={isSwitchLoading}
+            />
+          </div>
         </div>
       </div>
-
-      <div className="mb-4">
-        <Switch
-          checked={acceptMessages}
-          onCheckedChange={handleSwitchChange}
-          disabled={isSwitchLoading}
-        />
-        <span className="ml-2">
-          Accept Messages: {acceptMessages ? 'On' : 'Off'}
-        </span>
-      </div>
-      <Separator />
-
-      <Button
-        className="mt-4"
-        variant="outline"
-        onClick={(e) => {
-          e.preventDefault();
-          fetchMessages(true);
-        }}
-      >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <RefreshCcw className="h-4 w-4" />
-        )}
-      </Button>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Messages */}
+      <div className="mt-12">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-white">
+              Inbox
+            </h2>
+            <p className="text-gray-400">
+              Anonymous messages you have received.
+            </p>
+          </div>
+        </div>
         {messages.length > 0 ? (
-          messages.map((message) => (
-            <MessageCard
-              key={message._id.toString()}
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
-          ))
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-1">
+            {messages.map((message) => (
+              <MessageCard
+                key={message._id.toString()}
+                message={message}
+                onMessageDelete={handleDeleteMessage}
+              />
+            ))}
+          </div>
         ) : (
-          <p>No messages to display.</p>
+          <div className="rounded-3xl border border-dashed border-white/10 py-20 text-center">
+            <h3 className="text-2xl font-semibold text-white">
+              No Messages Yet
+            </h3>
+            <p className="mt-3 text-gray-400">
+              Share your profile link and start receiving anonymous feedback.
+            </p>
+          </div>
         )}
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default UserDashboard;

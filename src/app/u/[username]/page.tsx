@@ -5,8 +5,7 @@ import axios, { AxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { CardHeader, CardContent, Card } from '@/components/ui/card';
+import { Sparkles } from "lucide-react";
 import {
   Field,
   FieldLabel,
@@ -102,86 +101,120 @@ export default function SendMessage() {
     }
   };
 
-  return (
-    <div className="container mx-auto my-8 p-6 bg-muted rounded max-w-5xl">
-      <h1 className="text-4xl font-bold mb-6 text-center">Public Profile Link</h1>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6"
-      >
-        <Field>
-          <FieldLabel>
-            Send Anonymous Message to @{username}
-          </FieldLabel>
+return (
+  <div className="min-h-screen bg-linear-to-br from-slate-950 via-gray-900 to-black px-6 py-16">
 
-          <Textarea
-            placeholder="Write your anonymous message here"
-            className="resize-none"
-            {...form.register("content")}
-          />
+    <div className="mx-auto max-w-4xl">
+      {/* Hero */}
+      <div className="mb-12 text-center">
+        <div className="mb-5 inline-flex rounded-full border border-cyan-500/20 bg-cyan-500/10 px-5 py-2 text-sm font-medium text-cyan-300">
+          🔒 100% Anonymous
+        </div>
+        <h1 className="text-5xl font-bold text-white">
+          Send Anonymous Feedback
+        </h1>
+        <p className="mt-4 text-lg text-gray-400">
+          Your identity will never be revealed.
+        </p>
+      </div>
+      {/* Message Card */}
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
+          <Field>
+            <FieldLabel className="text-gray-200 text-lg">
+              Message for @{username}
+            </FieldLabel>
+            <Textarea
+              placeholder="Write something kind, honest or fun..."
+              className="min-h-20 resize-none rounded-2xl border-white/10 bg-white/5 text-white placeholder:text-gray-500 focus:border-cyan-500"
+              {...form.register("content")}
+            />
+            <FieldError
+              errors={[form.formState.errors.content]}
+            />
+          </Field>
 
-          <FieldError
-            errors={[form.formState.errors.content]}
-          />
-        </Field>
-
-        <div className="flex justify-center">
           <Button
             type="submit"
             disabled={isLoading || !messageContent}
+            className="w-full rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 py-6 text-lg font-semibold shadow-lg shadow-cyan-500/20 hover:scale-[1.02] "
           >
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Sending...
               </>
             ) : (
-              "Send It"
+              "Send Anonymous Message"
             )}
           </Button>
-        </div>
-      </form>
+        </form>
+      </div>
 
-      <div className="space-y-4 my-8">
-        <div className="space-y-2">
+      {/* Suggestions */}
+      <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-white">
+              Need Inspiration?
+            </h2>
+            <p className="text-gray-400">
+              Generate anonymous message ideas.
+            </p>
+          </div>
           <Button
             onClick={fetchSuggestedMessages}
-            className="my-4"
             disabled={isSuggestLoading}
+            className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
           >
-            Suggest Messages
-          </Button>
-          <p>Click on any message below to select it.</p>
-        </div>
-        <Card>
-          <CardHeader>
-            <h3 className="text-xl font-semibold">Messages</h3>
-          </CardHeader>
-          <CardContent className="flex flex-col space-y-4">
-            {error ? (
-              <p className="text-red-500">{error}</p>
+            <Sparkles className="mr-2 h-4 w-4" />
+            {isSuggestLoading ? (
+              <>
+                <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                Generating...
+              </>
             ) : (
-              parseStringMessages(suggestedMessages)?.map((message, index) => (
-                <Button
+              "Suggest Messages Using AI"
+            )}
+          </Button>
+        </div>
+        {error ? (
+          <p className="text-red-400">{error}</p>
+        ) : (
+          <div className="flex flex-wrap gap-3">
+            {parseStringMessages(suggestedMessages)?.map(
+              (message, index) => (
+                <button
                   key={index}
-                  variant="outline"
-                  className="mb-2"
+                  type="button"
                   onClick={() => handleMessageClick(message)}
+                  className="rounded-full border border-white/10 bg-black/20 px-5 py-3 text-left text-sm text-gray-300 transition-all duration-300 hover:border-cyan-500 hover:bg-cyan-500/10 hover:text-cyan-300"
                 >
                   {message}
-                </Button>
-              ))
+                </button>
+              )
             )}
-          </CardContent>
-        </Card>
+          </div>
+        )}
       </div>
-      <Separator className="my-6" />
-      <div className="text-center">
-        <div className="mb-4">Get Your Message Board</div>
-        <Link href={'/sign-up'}>
-          <Button>Create Your Account</Button>
+
+      <div className="mt-14 rounded-3xl border border-cyan-500/20 bg-linear-to-r from-cyan-500/10 to-blue-600/10 p-10 text-center">
+        <h2 className="text-3xl font-bold text-white">
+          Want Your Own Anonymous Inbox?
+        </h2>
+        <p className="mt-3 text-gray-400">
+          Create your own profile and start receiving anonymous feedback from anyone.
+        </p>
+        <Link href="/sign-up">
+          <Button className="mt-4 rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 px-10 py-6 text-md cursor-pointer shadow-lg shadow-cyan-500/20 hover:scale-[1.02] hover:from-cyan-400 hover:to-blue-500 ">
+            Create Free Account
+          </Button>
         </Link>
       </div>
     </div>
-  );
+  </div>
+);
 }
