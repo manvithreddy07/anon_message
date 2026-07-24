@@ -55,27 +55,28 @@ export default function HomePage() {
       {/* Main Content */}
     <main className="relative overflow-hidden bg-linear-to-br from-slate-950 via-gray-900 to-black text-white">
       {/* Background Glow */}
-      <div className="absolute left-20 top-24 h-72 w-72 rounded-full bg-cyan-500/20 blur-[120px]" />
+      <div className="absolute left-0 top-20 h-52 w-52 rounded-full bg-cyan-500/20 blur-[90px] sm:h-72 sm:w-72" />
+      <div className="absolute right-0 bottom-10 h-60 w-60 rounded-full bg-blue-600/20 blur-[110px] sm:h-80 sm:w-80" />
       <div className="absolute right-20 bottom-20 h-80 w-80 rounded-full bg-blue-600/20 blur-[150px]" />
 
-      <div className="relative z-10 mx-auto grid min-h-screen pt-24 max-w-7xl grid-cols-1 items-center gap-11 px-6 py-12 lg:grid-cols-2">
+      <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl grid-cols-1 items-center gap-12 px-5 pt-24 pb-10 sm:px-8 md:px-10 lg:grid-cols-2 lg:gap-16 lg:px-6">
         {/* LEFT SIDE */}
-        <div className="max-w-2xl space-y-8">
+        <div className="max-w-2xl space-y-8 text-center lg:text-left">
           <div>
-            <span className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-300">
+            <span className="inline-flex rounded-full border border-cyan-400/20 bg-cyan-500/10 px-3 py-2 text-xs font-medium text-cyan-300 sm:px-4 sm:text-sm">
               🔒 100% Anonymous Messaging
             </span>
           </div>
-          <div className="space-y-6">
-            <h1 className="text-5xl font-extrabold leading-tight md:text-6xl">
-              <span className="whitespace-nowrap">
+          <div className="space-y-4 sm:space-y-6">
+            <h1 className="text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+              <span>
                 Dive into the World of
               </span>
               <span className="block bg-linear-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
                 Anonymous Messages
               </span>
             </h1>
-            <p className="max-w-xl text-lg leading-8 text-gray-300">
+            <p className="max-w-xl text-base leading-7 text-gray-300 sm:text-lg sm:leading-8">
               Send honest thoughts, receive authentic feedback, and connect
               freely while your identity remains completely private.
             </p>
@@ -87,7 +88,7 @@ export default function HomePage() {
                 delay: 1800,
               }),
             ]}
-            className="w-full max-w-xl"
+            className="w-full max-w-full sm:max-w-xl"
           >
             <CarouselContent>
               {messages.map((message, index) => (
@@ -98,8 +99,8 @@ export default function HomePage() {
                         {message.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="flex gap-4">
-                      <div className="rounded-full bg-cyan-500/20 p-3">
+                    <CardContent className="flex items-start gap-3 p-5">
+                      <div className="rounded-full bg-cyan-500/20 p-2 sm:p-3">
                         <Mail className="h-5 w-5 text-cyan-400" />
                       </div>
                       <div>
@@ -119,9 +120,11 @@ export default function HomePage() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="relative flex items-center justify-center">
+        <div className="relative flex justify-center items-center mt-10 lg:mt-0">
           <div className="absolute h-96 w-96 rounded-full bg-cyan-500/10 blur-[120px]" />
-          <div className="relative h-162.5 w-162.5 translate-x-20">
+          <div
+            className="relative h-80 w-[320px] sm:h-105 sm:w-105 md:h-130 md:w-130 lg:h-162.5 lg:w-162.5 lg:translate-x-16"
+          >
             <Globe3D
               className="h-full w-full"
               markers={sampleMarkers}
@@ -142,7 +145,7 @@ export default function HomePage() {
 
       {/* Footer */}
     <footer className="border-t border-white/10 bg-linear-to-b from-slate-950 to-black">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-8 md:flex-row max-h-1.5">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 py-8 text-center md:flex-row md:text-left">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/30">
@@ -158,7 +161,7 @@ export default function HomePage() {
           </div>
         </div>
         {/* Navigation */}
-        <div className="flex gap-8 text-xm text-gray-400">
+        <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400 md:justify-start">
           <Link href="/" className="transition hover:text-cyan-400">
             Home
           </Link>
@@ -170,7 +173,7 @@ export default function HomePage() {
           </Link>
         </div>
         {/* Social Icons */}
-        <div className="flex gap-8 text-gray-400">
+        <div className="flex items-center justify-center gap-6 text-gray-400">
           <Link href="https://github.com/manvithreddy07/anon_message" target="_blank">
             <GithubIcon  className="h-5 w-5 cursor-pointer transition hover:text-cyan-400" />
           </Link>

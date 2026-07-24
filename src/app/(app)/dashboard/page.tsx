@@ -137,16 +137,16 @@ function UserDashboard() {
   };
 
 return (
-  <div className="min-h-screen bg-linear-to-br from-slate-950 via-gray-900 to-black px-6 pt-32 pb-10">
+  <div className="min-h-screen bg-linear-to-br from-slate-950 via-gray-900 to-black px-4 pt-24 pb-8 sm:px-6 sm:pt-28 lg:px-8 lg:pt-32">
     <div className="mx-auto max-w-7xl">
 
       {/* Header */}
-      <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
+      <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
             Dashboard
           </p>
-          <h1 className="mt-2 text-5xl font-bold text-white">
+          <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
             Welcome Back 👋
           </h1>
           <p className="mt-3 text-gray-400">
@@ -160,7 +160,7 @@ return (
             e.preventDefault();
             fetchMessages(true);
           }}
-          className="rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10"
+          className="w-full rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10 sm:w-auto"
         >
           {isLoading ? (
             <>
@@ -177,24 +177,24 @@ return (
       </div>
 
       {/* Top Cards */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Share Profile */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 backdrop-blur-xl">
           <h2 className="text-xl font-semibold text-white">
             Share Your Profile
           </h2>
           <p className="mt-2 text-sm text-gray-400">
             Send this link to your friends and receive anonymous feedback.
           </p>
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Input
               value={profileUrl}
               disabled
-              className="border-white/10 bg-white/5 text-white w-xl"
+              className="w-full border-white/10 bg-white/5 text-white"
             />
             <Button
               onClick={copyToClipboard}
-              className="bg-cyan-500 hover:bg-cyan-600"
+              className="w-full bg-cyan-500 hover:bg-cyan-600 sm:w-auto"
             >
               Copy
             </Button>
@@ -202,14 +202,14 @@ return (
         </div>
 
         {/* Settings */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 backdrop-blur-xl">
           <h2 className="text-xl font-semibold text-white">
             Message Settings
           </h2>
           <p className="mt-2 text-sm text-gray-400">
             Control whether people can send you anonymous messages.
           </p>
-          <div className="mt-8 flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-5 py-4">
+          <div className="mt-8 flex flex-col gap-5 rounded-2xl border border-white/10 bg-black/20 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-medium text-white">
                 Accept Anonymous Messages
@@ -230,9 +230,9 @@ return (
       </div>
       {/* Messages */}
       <div className="mt-12">
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">
               Inbox
             </h2>
             <p className="text-gray-400">
@@ -241,7 +241,7 @@ return (
           </div>
         </div>
         {messages.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-1">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-1">
             {messages.map((message) => (
               <MessageCard
                 key={message._id.toString()}
@@ -251,8 +251,8 @@ return (
             ))}
           </div>
         ) : (
-          <div className="rounded-3xl border border-dashed border-white/10 py-20 text-center">
-            <h3 className="text-2xl font-semibold text-white">
+          <div className="rounded-3xl border border-dashed border-white/10 px-6 py-16 text-center sm:py-20">
+            <h3 className="text-xl font-semibold text-white sm:text-2xl">
               No Messages Yet
             </h3>
             <p className="mt-3 text-gray-400">
