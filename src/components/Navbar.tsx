@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
-import { User } from "next-auth";
 import { MessageCircle, LogOut } from "lucide-react";
 
 export default function Navbar() {
   const { data: session } = useSession();
-  const user: User = session?.user;
+  const user= session?.user;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
@@ -40,7 +39,7 @@ export default function Navbar() {
               <div className="hidden rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 backdrop-blur md:block">
                 Welcome,
                 <span className="ml-1 font-semibold text-cyan-400">
-                  {user.username || user.email}
+                  {user?.username || user?.email}
                 </span>
               </div>
 
